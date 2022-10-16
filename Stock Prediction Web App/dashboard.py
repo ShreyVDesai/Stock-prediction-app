@@ -61,5 +61,9 @@ if option == 'Predictions':
     symbol = st.sidebar.text_input("Symbol", value='AAPL', max_chars=5)
     st.title('Stock Forecast App')
     n_years = st.slider('Years of data to consider for prediction:', 1, 4)
-    main.make_stock_prediction(symbol, n_years)
+    
 
+    pred = main.make_stock_prediction(symbol, n_years)
+    time = st.number_input('Number of days for prediction:',min_value=1,max_value=10,value=5,step=1)
+    st.write(f"The predicted closing values for next {time} days are:")
+    st.write(pred.head(time))
