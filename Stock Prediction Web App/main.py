@@ -43,12 +43,13 @@ def make_stock_prediction(tick,n_years):
 	pred_load_state = st.text("Please wait while we load your data")
 
 	auto_model = auto_arima(df_train['y'], m=4, seasonal=True,suppress_warnings = True,  step_wise=True, trace=True)
+	global forecast
 	forecast = pd.DataFrame(auto_model.predict(n_periods = period),index = pd.date_range(start = df_train['ds'].iloc[-1]+datetime.timedelta(days=1),periods = period))
 
 	pred_load_state.text('Your prediction is now ready!')
+	return forecast
 
-	st.write("The predicted closing values for next 5 days are:")
-	st.write(forecast.head())
+
 
 # Plot raw data
 def plot_raw_data():
